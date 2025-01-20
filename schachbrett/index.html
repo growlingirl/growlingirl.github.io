@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>schachbrett</title>
+  <style>
+    #gridContainer {
+        display: grid; 
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+        border: 10px double brown;
+    }
+
+    #gridContainer > div > div {
+    aspect-ratio: 1 / 1; /* Ensure each square has equal height and width */
+    width: 100%; /* Set width to take up the full available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px; /* Adjust font size as needed */
+    box-sizing: border-box; /* Ensure padding and borders are included in the element's total width and height */
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .black, .white {
+        padding: 16px 5px;
+        min-width: 145px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 2px solid grey;
+    }
+    .black {
+        background-color: black;
+        color:blue;
+    }
+
+    .white {
+        background-color: white;
+        color: blue;
+    }
+
+#gridContainer > div > div {
+    aspect-ratio: 1 / 1; /* Ensure each square has equal height and width */
+    width: 100%; /* Set width to take up the full available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px; /* Adjust font size as needed */
+    box-sizing: border-box; /* Ensure padding and borders are included in the element's total width and height */
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        
+        z-index: 1;
+        border: none;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+        
+    }
+
+    .dropbtn {
+        background-color: grey;
+        color: blue;
+        border: 2px solid black;
+        font-size: 16px;
+        padding: 16px;
+    }
+
+    .but {
+       background-image: url("../bilder/rotate.png");
+        color: blue;
+        border: 2px solid black;
+        font-size: 16px;
+        padding: 16px; 
+    }
+
+    .white-space {
+        white-space: pre;
+    }
+
+    #um > button {
+        cursor: pointer;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="dropdown">
+    <button class="dropbtn">Ich spiele mit...</button> 
+    <div class="dropdown-content">
+        <button class="black" onclick='black()'>schwarz</button>
+        <button class="white" onclick="white()">weiss</button>
+    </div>
+  </div>  
+
+  <div class="white-space">
+ 
+ 
+ 
+ 
+  </div>
+
+  <div id="gridContainer">
+
+  </div>
+
+  <div>
+    <br> <br>
+    <div id="um">
+    
+    </div>
+  </div>  
+  <script>
+
+    const abc = ['A','B','C','D','E','F','G','H'];
+    let isBlack = true;
+
+
+    function black() {
+        let gridContainer = document.getElementById("gridContainer");
+        gridContainer.innerHTML = '';
+        isBlack = true;
+   
+    for (let i = 0 ; i < 8 ; i++) {
+        let Reihe = document.createElement('div');
+        Reihe.id = "Reihe " + abc[i];
+       
+        gridContainer.appendChild(Reihe);
+
+        for (let j = 1 ; j < 9 ; j++) {
+            let Feld = document.createElement('div');
+            Feld.id = "Feld " + abc[i] + j;
+            if ((j % 2 == 0 && i % 2 == 0)||(j % 2 == 1 && i % 2 == 1)) {
+                Feld.style.backgroundColor='black';
+                Feld.style.color='white';
+            } else {
+                Feld.style.backgroundColor='white';
+                Feld.style.color='black';
+            } 
+
+            Reihe.appendChild(Feld); 
+
+            let p = document.createElement('p');
+            p.textContent = Feld.id;
+            Feld.appendChild(p);
+            
+            
+        }
+        
+    }
+    let um = document.getElementById('um');
+    um.innerHTML = '';
+    let button = document.createElement('button');
+    button.textContent = 'Schachbrett umdrehen';
+    button.setAttribute('onclick', 'drehen()');
+    button.className='but';
+    um.appendChild(button);
+    }
+
+    function white() {
+        let gridContainer = document.getElementById("gridContainer");
+        gridContainer.innerHTML = '';
+        isBlack = false;
+   
+    for (let i = 7 ; i > -1 ; i--) {
+        let Reihe = document.createElement('div');
+        Reihe.id = "Reihe " + abc[i];
+        gridContainer.appendChild(Reihe);
+
+        for (let j = 8 ; j > 0 ; j--) {
+            let Feld = document.createElement('div');
+            Feld.id = "Feld " + abc[i] + j;
+            if ((j % 2 == 0 && i % 2 == 0)||(j % 2 == 1 && i % 2 == 1)) {
+                Feld.style.backgroundColor='black';
+                Feld.style.color='white';
+            } else {
+                Feld.style.backgroundColor='white';
+                Feld.style.color='black';
+            } 
+
+            Reihe.appendChild(Feld); 
+
+            let p = document.createElement('p');
+            p.textContent = Feld.id;
+            Feld.appendChild(p);
+           
+            
+        }
+    }
+
+    let um = document.getElementById('um');
+    um.innerHTML= '';
+    let button = document.createElement('button');
+    button.textContent = 'Schachbrett umdrehen';
+    button.setAttribute('onclick', 'drehen()');
+    button.className='but';
+    um.appendChild(button);
+}
+
+    function drehen() {
+        
+
+        // Check if A1 is higher on the page than A8
+        if (isBlack) {
+            white();
+        } else {
+            black();
+        }
+    }
+
+  </script>
+
+</body>
+</html>

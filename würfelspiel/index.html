@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Game</title>
+  <style>
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+    }
+     
+    table, td, tr, th {
+        border: black solid 2px ;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .left {
+        writing-mode: vertical-rl;
+        rotate:0.5turn;
+    }
+
+    button {
+        font-weight: bold;
+    }
+
+    #win {
+        color: red;
+        font-weight: bold;
+    }
+    
+  </style>
+</head>
+<body>
+<h1>Würfelspiel</h1>
+<p> <b>Regeln:</b> <br>
+    Gespielt wird der User gegen den Computer. Pro
+    Zug kann man einmal würfeln. Ein Würfel hat eins bis sechs Punkte. Würfelt man,
+    wird dies dem Kontostand der Person oder dem Computer zugewiesen. Man
+    gewinnt, wenn der eigene Kontostand 20 Punkte erreicht oder überschreitet. Wird
+    eine sechs gewürfelt, dann wird der Kontostand wieder auf null zurückgesetzt.
+</p>
+
+<button type="button" id="throwD" onclick="throwDice()">Würfeln</button> <br> <br>
+<button type="button" onclick="clearTable()">Spiel neu beginnen</button>
+
+<br> 
+<p id="win"></p>
+
+
+<table>
+    <tr>
+        <td></td>
+        <th>&nbsp Spieler &nbsp</th>
+        <th>&nbsp Computer &nbsp</th>
+    </tr>
+    <tr>
+        <th class="left">&nbsp Würfe &nbsp</th>
+        <td id="PlDice"></td>
+        <td id="AIDice"></td>
+    </tr>
+    <tr>
+        <th class="left">&nbsp Resultat &nbsp</th>
+        <td id="PlResult"></td>
+        <td id="AIResult"></td>
+    </tr>
+    <tr>
+        <th class="left">&nbsp Gewinne &nbsp</th>
+        <th id="PlCount"></th>
+        <th id="AiCount"></th>
+    </tr>
+</table>
+
+    
+
+<script>
+
+    let Player = 0;
+    let AI = 0;
+    let PlayerArray = [];
+    let AIArray = [];
+    let PlayerSum = 0;
+    let AISum = 0;
+    let PlayerWin = false;
+    
+    let PlayerCount = 0;
+    let AICount = 0;
+
+    function throwDice() {
+        
+        //calculate random numers for Player and AI
+        Player = Math.floor(Math.random()*6)+1;
+        AI = Math.floor(Math.random()*6)+1;
+
+        //create Array and print numbers into dice log
+        if (Player != 6) {
+            PlayerArray.push(Player);
+            document.getElementById("PlDice").innerHTML += " <br> "+ Player;
+        } else {
+            PlayerArray = [];
+            PlayerSum = 0;
+            document.getElementById("PlDice").innerHTML += " <br> <b>"+ Player +"</b>";
+            Player = 0;
+            
+        }
+
+        if (AI != 6) {
+            AIArray.push(AI); 
+            document.getElementById("AIDice").innerHTML += " <br> "+ AI;
+        } else {
+            AIArray.length = [];
+            AISum = 0;
+            document.getElementById("AIDice").innerHTML += " <br> <b>"+ AI +"</b>";
+            AI = 0;
+        }
+        
+        //sum up Points in array
+        PlayerSum += Player;
+        document.getElementById("PlResult").innerHTML = PlayerSum;
+
+        AISum += AI;
+        document.getElementById("AIResult").innerHTML = AISum;
+
+        if (PlayerSum > 19 && AISum > 19) {
+            if (PlayerSum > AISum) {
+                document.getElementById('win').innerHTML = 'Du hast gewonnen!'
+                PlayerWin = true;
+                document.getElementById('throwD').style.display='none'; 
+            } else if (AISum > PlayerSum) {
+                document.getElementById('win').innerHTML = 'Der Computer hat gewonnen!'
+                document.getElementById('throwD').style.display='none';
+            } else {
+            document.getElementById('win').innerHTML = 'Es steht unentschieden! Wer nun höher würfelt gewinnt.'
+            }
+        } else if (PlayerSum > 19) {
+            document.getElementById('win').innerHTML = 'Du hast gewonnen!'
+            PlayerWin = true;
+            document.getElementById('throwD').style.display='none';
+        } else if (AISum > 19) {
+             document.getElementById('win').innerHTML = 'Der Computer hat gewonnen!'
+            document.getElementById('throwD').style.display='none';
+
+        }
+    }
+
+    function clearTable() {
+        //Counter for won games
+        if (PlayerWin) {
+            PlayerCount += 1;
+            document.getElementById('PlCount').innerHTML= '<br> <br>' + PlayerCount;
+        } else {
+            AICount += 1;
+            document.getElementById('AiCount').innerHTML= '<br> <br>' + AICount; 
+        }
+
+       //clear everything
+        Player = 0;
+        AI = 0;
+        PlayerArray = [];
+        AIArray = [];
+        PlayerSum = 0;
+        AISum = 0;
+        PlayerWin = false;
+        
+        document.getElementById("PlDice").innerHTML = "";
+        document.getElementById("PlResult").innerHTML = "";
+        document.getElementById("AIDice").innerHTML = "";
+        document.getElementById("AIResult").innerHTML = "";
+        document.getElementById("win").innerHTML = "";
+
+        document.getElementById('throwD').style.display='block';
+
+        
+    }
+</script>  
+</body>
+</html>

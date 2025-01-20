@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Taschenrechner</title>
+  <style>
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+    }
+     .dropdown-content {
+        
+        position: absolute;
+        
+        z-index: 1;
+        border: none;
+    }
+
+        .dropbtn {
+        border: none;
+        background-color: white;
+        font-size: 16px;
+        
+    }
+
+    #plus, #minus, #mal, #durch {
+        padding: 11px;
+    }
+
+    #eingabe {
+        font-size: 16px;
+        
+    }
+
+    #but {
+        font-size: 16px;
+    }
+
+    #Ausgaben, #Resultat {
+        background-color: light-grey;
+        font-weight: bold;
+        height: 20px;
+        width: 400px;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+    }
+    
+    .Zahl {
+        font-size: 24px;
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+    <form>  
+        <div class="dropdown">
+            <button class="dropbtn">Gib eine Zahl ein </button> 
+            <br> 
+            <div class="dropdown-content">
+                
+                <button type="button" class="Zahl" id="b1" onclick='operand("1")' >1</button>
+                <button type="button" class="Zahl" id="b2" onclick='operand("2")' >2</button>
+                <button type="button" class="Zahl" id="b3" onclick='operand("3")' >3</button>
+                <button type="button" class="Zahl" id="b4" onclick='operand("4")' >4</button>
+                <button type="button" class="Zahl" id="b5" onclick='operand("5")' >5</button>
+                <button type="button" class="Zahl" id="b6" onclick='operand("6")' >6</button>
+                <button type="button" class="Zahl" id="b7" onclick='operand("7")' >7</button>
+                <button type="button" class="Zahl" id="b8" onclick='operand("8")' >8</button>
+                <button type="button" class="Zahl" id="b9" onclick='operand("9")' >9</button>
+                <button type="button" class="Zahl" id="b0" onclick='operand("0")' >0</button>
+                <br> <br>
+                <button type="button" class="Zahl" id="bp" onclick='operand(".")' >.</button>
+                <button type="button" class="Zahl" id="bc" onclick='clearDisplay()'>clear</button>
+                <button type="button" class="Zahl" id="bg" onclick='Zahlen()' >=</button>
+
+                
+            </div>
+
+          </div>  
+
+       </div>
+       <br> <br> <br>  <br><br> <br>
+        <div class="dropdown">
+            <button class="dropbtn">Wähle einen Operand </button> 
+            <div class="dropdown-content">
+                <button type="button" id="plus" onclick='operand("+")' >&#10133</button>
+                <button type="button" id="minus" onclick='operand("-")' >&#10134</button>
+                <button type="button" id="mal" onclick='operand("*")' >&#10060</button>
+                <button type="button" id="durch" onclick='operand("/")' >&#10135</button>
+                
+            </div>
+
+          </div>  
+    </form>
+    <br> <br> <br>
+
+    <p>Deine Eingaben:</p>
+    <p id="Ausgaben">    </p>
+
+    <p>Das Resultat der Berechnung:</p>
+    <p id ='Resultat'></p>
+
+
+<script>
+    //Enter as a button click
+var input = document.getElementById('pw')
+input.addEventListener('keypress', function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault()
+        document.getElementById('but').click()
+    }
+})
+
+
+function Zahlen() {
+    //Resultat
+    let ausgabenElement = document.getElementById('Ausgaben');
+    let A = ausgabenElement.innerText;
+
+    let R=eval(A);
+        document.getElementById('Resultat').innerText = R;
+
+}
+
+function operand(i) {
+    let ausgabenElement = document.getElementById('Ausgaben');
+    let A = ausgabenElement.innerText;
+    
+    A += i;
+    document.getElementById('Ausgaben').innerText = A;
+}
+
+function clearDisplay() {
+    document.getElementById('Ausgaben').innerText = '';
+    document.getElementById('Resultat').innerText = '';
+    A = '';
+}
+
+</script>
+
+    
+</body>
+</html>

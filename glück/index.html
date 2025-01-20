@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gewinnspiel</title> 
+    <link rel="icon" type="image/x-icon" href="/bilder/scroll.PNG">
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+<body>
+
+<h1>Gewinnspiel</h1>
+
+<form>
+    <label for="pw">Wieviele Lose à 10.- Fr. möchtest du kaufen? (1-100)</label> <br>
+
+    <input type="number" id="pw" name="pw" min="1" max="100"> <br> <br>
+
+    <input type="button" onclick=Abfrage() value="Eingabe" id="but">
+</form>
+
+<div>
+    <p id="Jack"></p>
+    <p id="PII"></p>
+    <p id="PIII"></p>
+    <p id="Trost"></p>
+    <p id="Gewinn"></p>
+</div>
+
+<script>
+
+//Enter as a button click
+var input = document.getElementById('pw')
+input.addEventListener('keypress', function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault()
+        document.getElementById('but').click()
+    }
+})
+
+//Vorbereitung
+
+
+function hundert() {
+const Z = [] 
+for (let i = 1; i < 101; i++) {
+    Z.push(i)
+}
+return Z
+}
+
+function Zufall(array) {
+   return Math.floor(Math.random()*array.length)
+}
+
+// Lösli
+// 1 Lösli kostet 10 Fr => Total Einnahmen = 1'000 Fr; 
+// Gewinn nach Ausschüttung 250 Fr
+
+//Button Click - Random Lösli
+
+function Abfrage() {
+
+    let Z = hundert()
+
+//Jackpot Gewinn 100 Fr
+let J = Zufall(Z)
+let JackpotNummer = Z.splice(J,1)[0]
+
+console.log(JackpotNummer)
+
+
+//2. Platz 4 x 50 Fr
+const A = []
+
+for(let i= 1; i<5 ; i++) {
+    let x = Zufall(Z)
+        A.push( Z.splice(x,1)[0] )
+}
+
+//3. Platz 15 x 20 Fr
+const B = []
+
+for(let i= 1; i<16 ; i++) {
+    let x = Zufall(Z)
+    B.push( Z.splice(x,1)[0] )
+}
+
+//Trostpreise 30 x 5 Fr
+const T = []
+
+for(let i= 1; i<31 ; i++) {
+    let x = Zufall(Z)
+    T.push( Z.splice(x,1)[0] )
+}
+//Lose vergleichen mit Gewinnzahlen
+
+Z = hundert()
+
+    const pw = parseInt( document.getElementById('pw').value)
+    const los = [] 
+
+    for(let i= 1; i<(pw+1) ; i++) {
+    let x = Zufall(Z)
+    los.push(Z.splice(x,1)[0] )
+    }
+
+//Jackpot
+    /*if (los.includes(J)) {
+    JL.push(J)
+    document.getElementById('Jack').innerHTML ="Du hast mit der Nummer "+ JL.join(', ') +
+    " den Jackpot geknackt und 100 Fr gewonnen."
+    } else {
+         document.getElementById('Jack').innerHTML ="Du hast den Jackpot nicht geknackt."    
+    } */
+    const JL = los.includes(JackpotNummer) ? [JackpotNummer] : [];
+    document.getElementById('Jack').innerHTML = los.includes(JackpotNummer) 
+    ? "Du hast mit der Nummer "+ JL.join(', ') +" den Jackpot geknackt und 100 Fr gewonnen." 
+    : "Du hast den Jackpot nicht geknackt.";
+
+  
+    
+// 2te Preise
+    const AL = los.filter(x => A.includes(x));
+    document.getElementById('PII').innerHTML = (AL.length === 1)
+    ? "Du hast mit der Nummer " + AL.join(', ') + "einen 2ten Preis a 50 Fr gewonnen."
+    : (AL.length > 1)
+    ? "Du hast mit den Nummern " + AL.join(', ') + " je einen 2ten Preis a 50 Fr gewonnen."
+    : "Du hast keinen 2ten Preis gewonnen.";
+
+       
+
+// 3. Preise
+
+const BL = los.filter(x => B.includes(x));
+    document.getElementById('PIII').innerHTML = (BL.length === 1)
+    ? "Du hast mit der Nummer " + BL.join(', ') + "einen 3ten Preis a 20 Fr gewonnen."
+    :  (BL.length > 1)
+    ? "Du hast mit den Nummern " + BL.join(', ') + " je einen 3ten Preis a 20 Fr gewonnen."
+    : "Du hast keinen 3ten Preis gewonnen.";
+
+//Trostpreise
+const TL = los.filter(x => T.includes(x))
+    document.getElementById('Trost').innerHTML = (TL.length === 1)
+    ? "Du hast mit der Nummer " + TL.join(', ') + "einen Trostpreis a 5 Fr gewonnen."
+    :  (TL.length > 1)
+    ? "Du hast mit den Nummern " + TL.join(', ') + " je einen Trostpreis a 5 Fr gewonnen."
+    : "Du hast keinen Trostpreis gewonnen.";
+   
+//Geld gewonnen
+    let gesamtGewinn = (JL.length * 100) + (AL.length * 50) + (BL.length * 20) + (TL.length * 5)
+
+    document.getElementById('Gewinn').innerHTML= "Du hast insgesamt " + gesamtGewinn + " Fr gewonnen."
+    
+}
+
+ </script>
+   
+</body>
+</html>

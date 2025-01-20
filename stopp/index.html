@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Stoppuhr</title>
+  <style>
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+    }
+     
+    table, th, td, tr  {
+        border: 2px none black;
+        border-collapse: collapse;
+        align-content: center;
+    }
+
+    table {
+        width: 90%;
+    }
+
+    div {
+        text-align: center;
+    }
+
+    [id^="msek"] {
+        display: none;
+    }
+
+
+    
+  </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        
+        <td>Stunden</td>
+        <td>Minuten</td>
+        <td>Sekunden</td>
+        <td id="hsek0">Hundertstel Sekunden</td>
+        <td id="msek0">Millisekunden</td>
+        
+    </tr>
+    <tr>
+        
+        <td id="std4">0</td>
+        <td id="min4">0</td>
+        <td id="sek4">0</td>
+        <td id="hsek4">0</td>
+        <td id="msek4">0</td>
+    </tr>
+</table>
+
+<table>
+       <tr>
+        <td><button type="button" onclick="start()">&#9205 Start / &#9209 Stop</button></td>
+        <td><button type="button" onclick="safe()">&#128190 Safe</button></td>
+        <td><button type="button" onclick="clearClock()">&#129529 Clear</button></td>
+    </tr>
+</table>
+
+<br> <br> <br> <br> <br>
+<table>
+    <tr>
+        <th colspan="4" >Speicher</th>
+    </tr>
+    <tbody id="tableBody">
+        <tr>
+            <td>Stunden</td>
+            <td>Minuten</td>
+            <td>Sekunden</td>
+            <td>Hundertstel Sekunden</td>        
+        </tr>
+        
+    </tbody>
+</table>
+
+<script>
+
+let A;
+let startTime = 0;
+let running = false;
+let zms;
+let ums = 0;
+
+function start() {
+    running = !running;
+    
+    if (running == true) {
+        if (startTime == 0) {
+          startTime = Date.now();  
+        } 
+        
+    //Zähler
+    A = setInterval(zaehlen, 10);
+
+    } else {
+    // stop Timer
+    clearInterval(A);
+    ums = zms;
+
+    }
+}
+
+function zaehlen() {
+    zms = Date.now() - startTime;
+
+    document.getElementById('msek4').innerHTML = zms;
+    let zhs = (zms - (zms % 10)) / 10;
+    document.getElementById('hsek4').innerHTML = zhs % 100;
+    let zs = (zhs - (zhs % 100)) / 100;
+    document.getElementById('sek4').innerHTML = zs % 60;
+    let zm = (zs - (zs % 60)) / 60;
+    document.getElementById('min4').innerHTML = zm % 60;
+    let zh = (zm - (zm % 60)) / 60;
+    document.getElementById('std4').innerHTML = zh;
+}
+
+function clearClock() {
+
+    document.getElementById("std4").innerHTML = '0';  
+    document.getElementById("min4").innerHTML = '0';  
+    document.getElementById("sek4").innerHTML = '0';  
+    document.getElementById("hsek4").innerHTML = '0'; 
+    document.getElementById("msek4").innerHTML = '0';  
+
+    startTime = 0;
+}
+
+function safe() {
+
+// Get the table body element in which you want to add row
+    let table = document.getElementById("tableBody");
+
+// Create row element
+    let row = document.createElement("tr")
+
+// Create cells
+    let td1 = document.createElement("td");
+    let td2 = document.createElement("td");
+    let td3 = document.createElement("td");
+    let td4 = document.createElement("td");
+// Insert data to cells
+    td1.textContent = document.getElementById('std4').innerHTML;
+    td2.textContent = document.getElementById('min4').innerHTML;
+    td3.textContent = document.getElementById('sek4').innerHTML;
+    td4.textContent = document.getElementById('hsek4').innerHTML;
+// Append cells to row
+    row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td3);
+    row.appendChild(td4);
+    
+// Append row to table body
+    table.appendChild(row);
+
+}
+</script>
+
+</body>
+</html>

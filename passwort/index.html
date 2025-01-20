@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de-ch">
+    
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passwortabfrage</title>
+    <link rel="icon" type="image/x-icon" href="/bilder/scroll.PNG">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+
+  <body>
+
+    <h1>Passwortabfrage</h1>
+
+    <form>
+        <label for="pw">bitte gib das korrekte Passwort ein</label> <br>
+
+        <input type="password" id="pw" name="pw"> <br> <br>
+
+        <input type="button" onclick=Abfrage() value="Eingabe" id="but">
+    </form>
+
+<pre>
+  Das Passwort ist eine 6-stellige Zahl. Löse die folgenden Aufgaben, um die Ziffern des Passworts zu ermitteln:
+
+    Ziffer 1: 
+        Denke dir eine Zahl, die das Ergebnis der Multiplikation der Gesamtanzahl der Augen auf einem Standardwürfel
+        mit der kleinsten dreistelligen Primzahl ist.
+        Subtrahiere 57 von dem Ergebnis.
+        Nimm die letzte Ziffer dieser Zahl als die erste Ziffer des Passworts.
+
+    Ziffer 2:
+        Addiere die Anzahl der Stunden in drei Tagen zur Anzahl der Minuten in einer Stunde.
+        Teile die resultierende Zahl durch 13.
+        Die erste Ziffer des Quotienten ist die zweite Ziffer des Passworts.
+
+    Ziffer 3:
+        Denke an die Position des Buchstabens "G" im Alphabet.
+        Multipliziere diese Zahl mit der Anzahl der Seiten eines Würfels.
+        Addiere die Quersumme des Ergebnisses. Die letzte Ziffer ist die dritte Ziffer des Passworts.
+
+    Ziffer 4:
+        Addiere die Quadratzahlen von 3 und 4.
+        Ziehe die Summe der Ziffern im Jahr 1984 davon ab.
+        Die absolute Differenz ist die vierte Ziffer des Passworts.
+
+    Ziffer 5:
+        Nimm die Anzahl der Wochen in einem Jahr und multipliziere sie mit der Zahl der Planeten im Sonnensystem (ohne Pluto).
+        Ziehe 75 ab.
+        Die vorletzte Ziffer des Ergebnisses ist die fünfte Ziffer des Passworts.
+
+    Ziffer 6:
+        Nimm die Differenz zwischen der größten zweistelligen Primzahl und der kleinsten zweistelligen Primzahl.
+        Addiere die Anzahl der Ringe im Olympischen Logo.
+        Die Quersumme des Ergebnisses ist die sechste Ziffer des Passworts.
+</pre>
+
+
+    <script>
+
+//use Enter as button click
+// Get the input field
+var input = document.getElementById("pw");
+
+// Execute a function when the user presses a key on the keyboard
+input.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("but").click();
+  }
+}); 
+
+
+function Abfrage() {
+
+    //Wie local storage auf null setzen? im WebSpeicher alles löschen wählen
+    if (localStorage.clickcount) {localStorage.clickcount = 
+            Number(localStorage.clickcount) + 1;
+    } else {
+        localStorage.clickcount = 1;
+    }
+      
+    let pw = document.getElementById('pw');
+
+    
+    if (pw.value == "416341" && (localStorage.clickcount == 1 || localStorage.clickcount == 2 || localStorage.clickcount == 3 )) {
+        alert("RICHTIG" );
+    } else if (localStorage.clickcount == 1 && pw !="416341") {
+        alert('Passwort Falsch\ndu hast noch 2 Versuche');
+    } else if (localStorage.clickcount == 2 && pw !="416341") {
+        alert('Passwort Falsch\ndu hast noch 1 Versuch');
+    } else { 
+        alert('Passwort Falsch\ndu hast keine Versuche mehr übrig\nWende dich an deinen Administrator');
+        window.location.href = "https://www.google.ch"
+    }
+}
+
+    console.log("Ziffer 1: 21×101=212121×101=2121, 2121−57=20642121−57=2064 -> Die erste Ziffer ist 4.")
+    console.log("Ziffer 2: 72+60=13272+60=132, 132÷13=10132÷13=10 -> Die zweite Ziffer ist 1.")
+    console.log("Ziffer 3: G=7G=7, 7×6=427×6=42, Quersumme 4+2=64+2=6 -> Die dritte Ziffer ist 6.")
+    console.log("Ziffer 4: 32+42=9+16=2532+42=9+16=25, 25−(1+9+8+4)=25−22=325−(1+9+8+4)=25−22=3 -> Die vierte Ziffer ist 3.")
+    console.log("Ziffer 5: 52×8=41652×8=416, 416−75=341416−75=341 -> Die fünfte Ziffer ist 4.")
+    console.log("Ziffer 6: 97−11=8697−11=86, 86+5=9186+5=91, Quersumme 9+1=109+1=10 -> Die sechste Ziffer ist 1.")
+    console.log(" ")
+    console.log("Das Passwort ist 416341.")
+    </script>
+
+  </body>
+</html>

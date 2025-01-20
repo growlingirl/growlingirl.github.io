@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Würfel</title> 
+    <link rel="icon" type="image/x-icon" href="/bilder/scroll.PNG">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+ 
+<h1 id="anim">iele-Würfel-spiele-Würfel-spiele-Würfel-spiele-Würfel-spiele-Würfel-spiele-Würfel-Spiele</h1>
+<br> <br> <br> 
+
+<h2>Würfle einen D6</h2>
+
+<button type="button" class="button bl" onclick="d6()">D6 Würfeln</button>
+
+<div class="space">
+    <div class="cube">
+        <div class="cube-front"><br>&nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span> o </div>
+        <div class="cube-back"><span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o <br> <span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o  <br> <span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o</div>
+        <div class="cube-left"><span style="font-size: 4px;">&nbsp</span> o  <br> &nbsp &nbsp &nbsp <span style="font-size: 2px;">&nbsp</span> o  <br> <span style="font-size: 4px;">&nbsp</span> &nbsp &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o</div>
+        <div class="cube-right"><span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o <br>  <br> <span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o </div>
+        <div class="cube-top"><span style="font-size: 4px;">&nbsp</span> o <br> <br> <span style="font-size: 4px;">&nbsp</span> &nbsp &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o</div>
+        <div class="cube-bottom"><span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o <br> &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span> o  <br> <span style="font-size: 4px;">&nbsp</span> o &nbsp &nbsp &nbsp &nbsp <span style="font-size: 4px;">&nbsp</span>o</div>
+    </div>
+    </div>
+
+<br> <br> <br> 
+
+<h2>D20 Würfel</h2>
+
+<div class="image-container">
+<img src="bilder/d20.jpg" alt="Bild eines zwanzig seitigen Würfels">
+<div class="overlay-text" id="d20"></div>
+</div>
+<br> <br><br> <br>
+<button type="button" class="button" onclick="d20()">Reroll</button>
+<br> <br> <br> <br> <br> <br><br> 
+
+<!--Math.random() returns a random number between 0 (included) and 1 (excluded)
+    So you have to multiply it with the Max number you would like to get 
+    and then round it to the floor whole number, 
+    then add 1 to exclude 0-->
+
+
+<h2>Wähle deinen eigenen Würfel</h2> 
+<p>Wie viele Seiten soll dein Würfel haben?</p>
+<form action="" class="rechtsruck">
+    <input type="number" id="quantity" name="quantity" min="1" max="infinite">
+    </form>
+<br>
+<button type="button" class="button" onclick="dx()">Würfle</button>
+<br>
+
+<p>Dein <span id="qx"></span>-seitiger Würfel zeigt nach dem Würfeln die folgende Zahl an: 
+ <span id="dx" class="result"></span></p>
+
+
+<h2>Life counter for Magic</h2>
+
+<p>Wie viele Lebenspunkte haben die Magier maximal?</p>
+<form action="" class="rechtsruck">
+    <input type="number" id="W0" name="W0" min="1" max="infinite">
+    </form>
+<br>
+<button type="button" class="button" onclick="W0()">Spielbeginn</button>
+<br> <br>
+
+<div class="flex-container">
+    <div >
+        <div class="zo">
+            <div class="image-container">
+                <img src="bilder/d20.jpg" alt="Bild eines zwanzig seitigen Würfels">
+                <div class="overlay_o"></div>
+                <div class="overlay-text" id="Wo"></div>
+            </div>    
+                <button type="button" class="button_o" onclick="O1()">&#9650 
+                Zugabe: 1 Leben </button> 
+                
+                <button type="button" class="button_o" onclick="O2()">&#9660
+                Abzug: 1 Leben &nbsp</button>         
+        </div>
+        
+    </div>
+    <div class="image container">
+        <p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </p>
+    </div>
+    <div>
+        <div class="zb">
+            <div class="image-container">
+                <img src="bilder/d20.jpg" alt="Bild eines zwanzig seitigen Würfels">
+                <div class="overlay_b"></div>
+                <div class="overlay-text" id="Wb"></div>
+                </div>
+                
+                <button type="button" class="button_b" onclick="B1()">&#9650 Zugabe: 1 Leben </button> 
+                
+                <button type="button" class="button_b" onclick="B2()">&#9660 Abzug: 1 Leben &nbsp</button>
+                
+        </div>
+        
+    </div>
+</div>
+<br> <br>
+<!-- <h2>Kalaha</h2>
+<br>
+<button type="button" class="button" onclick="setinstone()">Spiel starten</button> <br> <br> <br> 
+<div class="mulden-container">
+    <div class="muldeng"> 
+        <div class="mulg" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div> 
+    <div class="mulden" id="mulden">
+        
+    </div> 
+    <div class="muldeng">
+        <div class="mulg" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+</div>
+
+<br><br> -->
+
+
+<script src="Würfel.js"> </script>
+</body>
+</html>
